@@ -17,7 +17,7 @@
                 the restaurant and improve your day.
             </p>
 
-            <a href="#" class="button">
+            <a href="/order" class="button">
                 Order Now <i class="ri-arrow-right-line"></i>
             </a>
         </div>

@@ -5,22 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"  rel="stylesheet">
     @vite(['resources/css/app.css'])
 
-    <title>TokiNY</title>
+    <title>@yield('title', 'TokiNY')</title>
 </head>
 <body>
 <header class="header" id="header">
     <nav class="nav container">
-        <a href="#" class="nav__logo">
+        <a href="{{ route('home') }}" class="nav__logo">
             <img src="{{ asset('img/logo.png') }}" alt="logo image">
-            Sushi
+            TokiNY
         </a>
 
         <div class="nav__menu" id="nav-menu">
             <ul class="nav__list">
                 <li class="nav__item">
-                    <a href="#home" class="nav__link active-link">Home</a>
+                    <a href="{{ route('home') }}" class="nav__link active-link">Home</a>
                 </li>
 
                 <li class="nav__item">
@@ -34,6 +35,30 @@
                 <li class="nav__item">
                     <a href="#recently" class="nav__link">Recently</a>
                 </li>
+
+                @if (Route::has('login'))
+                    @auth
+{{--                        <li class="nav__item">--}}
+{{--                            <a href="{{ route('dashboard') }}" class="nav__link">dashboard</a>--}}
+{{--                        </li>--}}
+
+                        <li class="nav__item">
+                            <a href="{{ route('logout') }}" class="nav__link">logout</a>
+                        </li>
+
+                        <li class="nav__item">
+                            <a href="#profile" class="nav__link">{{ auth()->user()->name }}</a>
+                        </li>
+                    @else
+                        <li class="nav__item">
+                            <a href="{{ route('register') }}" class="nav__link">register</a>
+                        </li>
+
+                        <li class="nav__item">
+                            <a href="{{ route('login') }}" class="nav__link">login</a>
+                        </li>
+                    @endif
+                @endif
             </ul>
 
             <!-- Close button -->
@@ -57,9 +82,28 @@
     </nav>
 </header>
 
-<main class="main">
+<main class="main mt-5">
 
-@yield('main_content')
+    <div class="container">
+
+{{--        @if ($errors->any())--}}
+{{--            <div class="alert alert-danger">--}}
+{{--                <ul>--}}
+{{--                    @foreach ($errors->all() as $error)--}}
+{{--                        <li>{{ $error }}</li>--}}
+{{--                    @endforeach--}}
+{{--                </ul>--}}
+{{--            </div>--}}
+{{--        @endif--}}
+
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @yield('content')
+    </div>
 
 </main>
 
@@ -133,8 +177,9 @@
     </div>
 
     <img src="{{ asset('img/leaf-branch-4.png') }}" alt="footer image" class="footer__leaf">
-    <img src="{{ asset('img/spinach-leaf.png') }}" alt="footer image" class="footer__spinach">
+{{--    <img src="{{ asset('img/spinach-leaf.png') }}" alt="footer image" class="footer__spinach">--}}
 </footer>
+
 <script src="https://unpkg.com/scrollreveal"></script>
 @vite(['resources/js/app.js'])
 </body>

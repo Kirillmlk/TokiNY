@@ -1141,3 +1141,12 @@ body.dark-theme {
         width: 150px;
     }
 }
+
+.cream-background {
+    background-color: #e8ddb1;
+}
+
+.alert {
+    position: relative; /* Убедитесь, что позиция нормальная */
+    z-index: 1; /* Убедитесь, что уведомление выше других элементов */
+}
