@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\MenuController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -17,16 +18,28 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 // Главная страница
 Route::get('/', function () {
     return view('pages.index');
 })->name('home');
 
+// Отображение меню (для всех пользователей)
+Route::get('menu', [MenuController::class, 'index'])->name('menu.index');
+
 // Защищенные маршруты (требуется аутентификация)
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', [UserController::class, 'dashboard'])->name('dashboard');
-
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+
+    // Маршруты для администратора (управление меню)
+    Route::middleware(['admin'])->group(function () {
+        Route::get('admin/menu', [MenuController::class, 'adminIndex'])->name('admin.menu.index');
+        Route::get('admin/menu/create', [MenuController::class, 'create'])->name('admin.menu.create');
+        Route::post('admin/menu', [MenuController::class, 'store'])->name('admin.menu.store');
+        Route::get('admin/menu/{menu}/edit', [MenuController::class, 'edit'])->name('admin.menu.edit');
+        Route::put('admin/menu/{menu}', [MenuController::class, 'update'])->name('admin.menu.update');
+    });
 });
 
 // Маршруты для гостей
