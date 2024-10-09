@@ -63,6 +63,7 @@ body {
     background-color: var(--body-color);
     color: var(--text-color);
     transition: background .4s; /* mode animation */
+    /*padding-top: 50px;*/
 }
 
 h1, h2, h3 {
@@ -126,8 +127,10 @@ img {
     background-color: var(--body-color);
     top: 0;
     left: 0;
-    z-index: var(--z-fixed);
     transition: box-shadow .3s, background .4s;
+    right: 0;
+    height: 100px; /* Высота хедера */
+    z-index: 1000; /* Чтобы хедер был над остальным контентом */
 }
 
 .nav {

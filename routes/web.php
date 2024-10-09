@@ -34,7 +34,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Маршруты для администратора (управление меню)
     Route::middleware(['admin'])->group(function () {
-        Route::get('admin/menu', [MenuController::class, 'adminIndex'])->name('admin.menu.index');
+        Route::get('admin/menu', [MenuController::class, 'index'])->name('admin.menu.index');
         Route::get('admin/menu/create', [MenuController::class, 'create'])->name('admin.menu.create');
         Route::post('admin/menu', [MenuController::class, 'store'])->name('admin.menu.store');
         Route::get('admin/menu/{menu}/edit', [MenuController::class, 'edit'])->name('admin.menu.edit');
