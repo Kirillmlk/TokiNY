@@ -25,14 +25,20 @@
                 </li>
 
                 <li class="nav__item">
-                    <a href="{{ route('order') }}" class="nav__link">Menu</a>
+                    <a href="{{ route('menu.show') }}" class="nav__link">Menu</a>
                 </li>
 
                 @if (Route::has('login'))
                     @auth
                         <li class="nav__item">
-                            <a href="{{ route('dashboard') }}" class="nav__link">{{ auth()->user()->name }}</a>
+                            <a href="{{ route('profile') }}" class="nav__link">{{ auth()->user()->name }}</a>
                         </li>
+
+                        @if (auth()->user() && auth()->user()->role === 'admin')
+                        <li class="nav__item">
+                            <a href="{{ route('admin.menu.index') }}" class="nav__link">Admin Dashboard</a>
+                        </li>
+                        @endif
                     @else
                         <li class="nav__item">
                             <a href="{{ route('register') }}" class="nav__link">register</a>
@@ -41,13 +47,9 @@
                         <li class="nav__item">
                             <a href="{{ route('login') }}" class="nav__link">login</a>
                         </li>
-                    @endif
-                        @if (auth()->user()->role === 'admin') <!-- Проверка роли администратора -->
-                        <li class="nav__item">
-                            <a href="{{ route('admin.menu.index') }}" class="nav__link">Admin Dashboard</a>
-                        </li>
-                        @endif
+                    @endauth
                 @endif
+
             </ul>
 
             <!-- Close button -->

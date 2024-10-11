@@ -17,7 +17,7 @@
                 the restaurant and improve your day.
             </p>
 
-            <a href="/order" class="button">
+            <a href="{{ route('menu.show') }}" class="button">
                 Order Now <i class="ri-arrow-right-line"></i>
             </a>
         </div>

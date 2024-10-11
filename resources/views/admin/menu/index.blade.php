@@ -2,10 +2,10 @@
 
 @section('content')
     <div class="container mt-5">
-        <h1 class="text-center">Меню</h1>
-        <p class="lead text-center">Меню администратора. Тут вы можете добавлять, изменять или удалять продукты.</p>
+        <h1 class="text-center">Admin menu</h1>
+        <p class="lead text-center">Admin menu. Here you can add, edit, or delete products.</p>
 
-        <a href="{{ route('admin.menu.create') }}" class="btn btn-primary m">Добавить новое меню</a>
+        <a href="{{ route('admin.menu.create') }}" class="btn btn-primary m">Add new item</a>
 
         <div class="row mt-4">
             @foreach($menus as $menu)
@@ -19,12 +19,12 @@
                             <p class="card-text">Цена: {{ $menu->price }} ₽</p>
                             <p class="card-text">{{ $menu->description }}</p>
                             <div class="mt-auto">
-                                <a href="{{ route('admin.menu.edit', $menu->id) }}" class="btn btn-success">Редактировать</a>
+                                <a href="{{ route('admin.menu.edit', $menu->id) }}" class="btn btn-success">Edit</a>
 
                                 <form action="{{ route('admin.menu.destroy', $menu->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить этот элемент?');">Удалить</button>
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить этот элемент?');">Delete</button>
                                 </form>
                             </div>
                         </div>

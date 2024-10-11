@@ -12,7 +12,7 @@
                 yourself of a good meal, enjoy and be happy.
             </p>
 
-            <a href="/order" class="button">
+            <a href="{{ route('menu.show') }}" class="button">
                 Order Now <i class="ri-arrow-right-line"></i>
             </a>
 

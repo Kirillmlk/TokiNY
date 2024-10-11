@@ -4,7 +4,6 @@
 
 @section('content')
     <div class="row mb-5 mt-5">
-        @include('components.errors')
         <div class="col-md-6 offset-md-3 pt-5 ">
             <h1 class="h2 text-center">Register form</h1>
             <p class="mb-4 mt-5 text-center">Register to place your first order and receive notifications about

@@ -25,13 +25,11 @@ Route::get('/', function () {
 })->name('home');
 
 // Отображение меню (для всех пользователей)
-Route::get('/order', function () {
-    return view('pages.order');
-})->name('order');
+Route::get('menu', [MenuController::class, 'showMenu'])->name('menu.show');
 
 // Защищенные маршруты (требуется аутентификация)
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', [UserController::class, 'dashboard'])->name('dashboard');
+    Route::get('dashboard', [UserController::class, 'dashboard'])->name('profile');
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
     // Маршруты для администратора (управление меню)

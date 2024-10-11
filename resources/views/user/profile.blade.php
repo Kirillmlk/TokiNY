@@ -21,12 +21,11 @@
                         {{--                        <a href="{{ route('profile.edit') }}" class="btn btn-primary">Edit Profile</a>--}}
                         <form action="{{ route('logout') }}" method="POST" class="d-inline">
                             @csrf
-                            <a href="{{ route('logout') }}" class="btn btn-danger">logout</a>
+                            <a href="{{ route('logout') }}" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите выйти?')">logout</a>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 @endsection
