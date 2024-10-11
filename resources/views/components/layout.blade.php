@@ -25,26 +25,11 @@
                 </li>
 
                 <li class="nav__item">
-                    <a href="#about" class="nav__link">About us</a>
-                </li>
-
-                <li class="nav__item">
-                    <a href="#popular" class="nav__link">Popular</a>
-                </li>
-
-                <li class="nav__item">
-                    <a href="#recently" class="nav__link">Recently</a>
+                    <a href="{{ route('order') }}" class="nav__link">Menu</a>
                 </li>
 
                 @if (Route::has('login'))
                     @auth
-
-
-                        <li class="nav__item">
-                            <a href="#" class="nav__link">logout</a>
-{{--                            {{ route('logout') }}--}}
-                        </li>
-
                         <li class="nav__item">
                             <a href="{{ route('dashboard') }}" class="nav__link">{{ auth()->user()->name }}</a>
                         </li>
@@ -57,6 +42,11 @@
                             <a href="{{ route('login') }}" class="nav__link">login</a>
                         </li>
                     @endif
+                        @if (auth()->user()->role === 'admin') <!-- Проверка роли администратора -->
+                        <li class="nav__item">
+                            <a href="{{ route('admin.menu.index') }}" class="nav__link">Admin Dashboard</a>
+                        </li>
+                        @endif
                 @endif
             </ul>
 
@@ -93,6 +83,11 @@
                         <li>{{ $error }}</li>
                     @endforeach
                 </ul>
+            </div>
+        @endif
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
             </div>
         @endif
 

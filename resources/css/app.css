@@ -1128,7 +1128,7 @@ body.dark-theme {
 
     .recently__leaf-1 {
         width: 150px;
-        top: 19rem;
+        top: 30rem;
     }
 
     .recently__leaf-2 {
@@ -1160,4 +1160,23 @@ body.dark-theme {
     margin-bottom: 5%;
     position: relative;
     z-index: 1000;
+}
+
+.card {
+    height: 100%; /* Заставляет карточку занимать всю доступную высоту */
+}
+
+.card-img-top {
+    height: 200px; /* Устанавливает фиксированную высоту для изображений */
+    object-fit: cover; /* Обеспечивает правильное отображение изображения */
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.btn {
+    margin-top: auto;
+    padding: 5px 5px;
 }

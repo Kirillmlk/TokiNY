@@ -25,7 +25,9 @@ Route::get('/', function () {
 })->name('home');
 
 // Отображение меню (для всех пользователей)
-Route::get('menu', [MenuController::class, 'index'])->name('menu.index');
+Route::get('/order', function () {
+    return view('pages.order');
+})->name('order');
 
 // Защищенные маршруты (требуется аутентификация)
 Route::middleware(['auth', 'verified'])->group(function () {

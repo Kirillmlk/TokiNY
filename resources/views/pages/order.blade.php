@@ -1,5 +1,5 @@
 @extends('components.layout')
 
-@section('main_content')
+@section('content')
     @include('components.popular')
 @endsection

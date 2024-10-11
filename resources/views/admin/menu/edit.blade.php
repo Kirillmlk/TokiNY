@@ -3,7 +3,7 @@
 @section('content')
     <h1>Редактировать элемент меню</h1>
 
-    <form action="{{ route('admin.menu.update', $menu->id) }}" method="POST">
+    <form action="{{ route('admin.menu.update', $menu->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -25,6 +25,14 @@
         <div class="form-group">
             <label for="description">Описание</label>
             <textarea name="description" class="form-control">{{ $menu->description }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="image">Изображение</label>
+            <input type="file" name="image" class="form-control">
+            @if($menu->image)
+                <img src="{{ asset('storage/' . $menu->image) }}" alt="{{ $menu->name }}" class="img-thumbnail mt-2" width="150">
+            @endif
         </div>
 
         <button type="submit" class="btn btn-primary">Сохранить</button>

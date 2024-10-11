@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Menu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class MenuController extends Controller
 {
@@ -49,15 +50,31 @@ class MenuController extends Controller
 
     public function update(Request $request, Menu $menu)
     {
-
         $request->validate([
             'name' => 'required|string|max:255',
             'price' => 'required|numeric',
             'description' => 'nullable|string',
             'category' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $menu->update($request->all());
+        // Обновляем данные меню
+        $menu->update($request->only(['name', 'price', 'description', 'category']));
+
+        // Проверяем, загружено ли новое изображение
+        if ($request->hasFile('image')) {
+            // Удаляем старое изображение, если оно существует
+            if ($menu->image) {
+                Storage::delete('public/' . $menu->image);
+            }
+
+            // Сохраняем новое изображение
+            $imagePath = $request->file('image')->store('menu_images', 'public');
+            $menu->image = $imagePath; // Обновляем поле image
+        }
+
+        // Сохраняем изменения в базе данных
+        $menu->save();
 
         return redirect()->route('admin.menu.index')->with('success', 'Menu item updated successfully!');
     }
