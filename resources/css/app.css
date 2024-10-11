@@ -1150,6 +1150,14 @@ body.dark-theme {
 }
 
 .alert {
-    position: relative; /* Убедитесь, что позиция нормальная */
-    z-index: 1; /* Убедитесь, что уведомление выше других элементов */
+    margin-top: 50px;
+    max-width: 100%;
+    z-index: 1000;
+}
+
+.alert-success {
+    margin-top: 50px;
+    margin-bottom: 5%;
+    position: relative;
+    z-index: 1000;
 }

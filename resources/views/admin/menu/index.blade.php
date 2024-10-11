@@ -24,6 +24,12 @@
                             <p class="card-text">Цена: {{ $menu->price }} ₽</p>
                             <p class="card-text">{{ $menu->description }}</p>
                             <a href="{{ route('admin.menu.edit', $menu->id) }}" class="btn btn-warning">Редактировать</a>
+
+                            <form action="{{ route('admin.menu.destroy', $menu->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить этот элемент?');">Удалить</button>
+                            </form>
                         </div>
                     </div>
                 </div>

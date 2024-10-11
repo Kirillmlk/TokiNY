@@ -39,6 +39,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('admin/menu', [MenuController::class, 'store'])->name('admin.menu.store');
         Route::get('admin/menu/{menu}/edit', [MenuController::class, 'edit'])->name('admin.menu.edit');
         Route::put('admin/menu/{menu}', [MenuController::class, 'update'])->name('admin.menu.update');
+        Route::delete('admin/menu/{menu}', [MenuController::class, 'destroy'])->name('admin.menu.destroy');
     });
 });
 

@@ -20,19 +20,18 @@ class MenuController extends Controller
 
     public function store(Request $request)
     {
-        // Валидация данных и добавление элемента меню
         $request->validate([
             'name' => 'required|string|max:255',
             'price' => 'required|numeric',
             'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Валидация изображения
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $menuData = $request->all();
 
-        // Обработка загрузки изображения
+
         if ($request->hasFile('image')) {
-            $menuData['image'] = $request->file('image')->store('images', 'public'); // Сохранение изображения
+            $menuData['image'] = $request->file('image')->store('images', 'public');
         }
 
         Menu::create($menuData);
@@ -61,5 +60,11 @@ class MenuController extends Controller
         $menu->update($request->all());
 
         return redirect()->route('admin.menu.index')->with('success', 'Menu item updated successfully!');
+    }
+
+    public function destroy(Menu $menu)
+    {
+        $menu->delete();
+        return redirect()->route('admin.menu.index')->with('success', 'Menu item deleted successfully!');
     }
 }

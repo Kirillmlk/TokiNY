@@ -38,16 +38,15 @@
 
                 @if (Route::has('login'))
                     @auth
-{{--                        <li class="nav__item">--}}
-{{--                            <a href="{{ route('dashboard') }}" class="nav__link">dashboard</a>--}}
-{{--                        </li>--}}
+
 
                         <li class="nav__item">
-                            <a href="{{ route('logout') }}" class="nav__link">logout</a>
+                            <a href="#" class="nav__link">logout</a>
+{{--                            {{ route('logout') }}--}}
                         </li>
 
                         <li class="nav__item">
-                            <a href="#profile" class="nav__link">{{ auth()->user()->name }}</a>
+                            <a href="{{ route('dashboard') }}" class="nav__link">{{ auth()->user()->name }}</a>
                         </li>
                     @else
                         <li class="nav__item">
@@ -85,20 +84,15 @@
 <main class="main mt-5">
 
     <div class="container">
+        @yield('flash-message')
 
-{{--        @if ($errors->any())--}}
-{{--            <div class="alert alert-danger">--}}
-{{--                <ul>--}}
-{{--                    @foreach ($errors->all() as $error)--}}
-{{--                        <li>{{ $error }}</li>--}}
-{{--                    @endforeach--}}
-{{--                </ul>--}}
-{{--            </div>--}}
-{{--        @endif--}}
-
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
             </div>
         @endif
 
