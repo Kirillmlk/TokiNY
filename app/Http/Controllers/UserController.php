@@ -33,4 +33,24 @@ class UserController extends Controller
     {
         return view('user.profile');
     }
+
+    public function update(Request $request)
+    {
+        $user = Auth::user();
+
+        $request->validate([
+            'name' => ['required', 'max:15'],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email,' . $user->id],
+        ]);
+
+        $user->update($request->only('name', 'email'));
+
+        return redirect()->route('profile')->with('success', 'Profile successfully updated!');
+    }
+
+    public function edit()
+    {
+        $user = Auth::user();
+        return view('user.edit', compact('user'));
+    }
 }

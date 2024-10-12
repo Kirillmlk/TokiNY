@@ -18,10 +18,11 @@
                         <p><strong>Joined on:</strong> {{ auth()->user()->created_at->format('d M, Y') }}</p>
                     </div>
                     <div class="card-footer text-center">
-                        {{--                        <a href="{{ route('profile.edit') }}" class="btn btn-primary">Edit Profile</a>--}}
+                        <a href="{{ route('profile.edit') }}" class="btn btn-primary">Edit Profile</a>
                         <form action="{{ route('logout') }}" method="POST" class="d-inline">
                             @csrf
-                            <a href="{{ route('logout') }}" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите выйти?')">logout</a>
+                            <a href="{{ route('logout') }}" class="btn btn-danger"
+                               onclick="return confirm('Вы уверены, что хотите выйти?')">logout</a>
                         </form>
                     </div>
                 </div>

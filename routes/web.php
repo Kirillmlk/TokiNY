@@ -31,6 +31,8 @@ Route::get('menu', [MenuController::class, 'showMenu'])->name('menu.show');
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', [UserController::class, 'dashboard'])->name('profile');
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('profile/edit', [UserController::class, 'edit'])->name('profile.edit');
+    Route::put('profile', [UserController::class, 'update'])->name('profile.update');
 
     // Маршруты для администратора (управление меню)
     Route::middleware(['admin'])->group(function () {
