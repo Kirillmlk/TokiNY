@@ -4,6 +4,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +45,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('admin/menu/{menu}', [MenuController::class, 'update'])->name('admin.menu.update');
         Route::delete('admin/menu/{menu}', [MenuController::class, 'destroy'])->name('admin.menu.destroy');
     });
+
+    // Маршруты для корзины
+    Route::get('cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('cart/add/{menu}', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::post('cart/remove/{menu}', [CartController::class, 'removeFromCart'])->name('cart.remove');
+    Route::post('cart/clear', [CartController::class, 'clear'])->name('cart.clear');
+
+    // Маршрут для оформления заказа
+    Route::get('order/create', [OrderController::class, 'createOrder'])->name('order.create');
+    Route::post('order/store', [OrderController::class, 'store'])->name('order.store');
+//    Route::post('/cart/update/{productId}', [CartController::class, 'updateCart'])->name('cart.update');
+
+    Route::get('/order/success', function () {
+        return view('order.success');
+    })->name('order.success');
 });
 
 // Маршруты для гостей

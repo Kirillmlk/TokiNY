@@ -1,11 +1,11 @@
 @extends('components.layout')
 
 @section('content')
+
     <div class="container mt-5">
         <h1 class="text-center">Ваша корзина</h1>
-        @if ($cartItems->isEmpty())
-            <p class="text-center">Ваша корзина пуста.</p>
-        @else
+
+        @if ($cartItems && count($cartItems) > 0)
             <div class="row">
                 @foreach ($cartItems as $item)
                     <div class="col-md-4 mb-4">
@@ -30,6 +30,10 @@
                     <button type="submit" class="btn btn-primary">Оформить заказ</button>
                 </form>
             </div>
+        @else
+            <p class="text-center">Ваша корзина пуста.</p>
         @endif
     </div>
+
 @endsection
+

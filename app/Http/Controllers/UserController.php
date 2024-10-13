@@ -41,9 +41,11 @@ class UserController extends Controller
         $request->validate([
             'name' => ['required', 'max:15'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email,' . $user->id],
+            'phone_number' => ['required', 'max:20'],
+            'address' => ['required', 'max:255'],
         ]);
 
-        $user->update($request->only('name', 'email'));
+        $user->update($request->only('name', 'email', 'phone_number', 'address'));
 
         return redirect()->route('profile')->with('success', 'Profile successfully updated!');
     }

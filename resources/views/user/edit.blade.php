@@ -17,6 +17,16 @@
                 <input type="email" class="form-control" id="email" name="email" value="{{ old('email', $user->email) }}" required>
             </div>
 
+            <div class="mb-3">
+                <label for="phone_number" class="form-label">Номер телефона</label>
+                <input type="text" name="phone_number" class="form-control" value="{{ old('phone_number', $user->phone_number) }}">
+            </div>
+
+            <div class="mb-3">
+                <label for="address" class="form-label">Адрес</label>
+                <textarea name="address" class="form-control">{{ old('address', $user->address) }}</textarea>
+            </div>
+
             <button type="submit" class="btn btn-primary">Сохранить изменения</button>
         </form>
     </div>
