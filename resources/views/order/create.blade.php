@@ -57,10 +57,21 @@
                             <input type="text" class="form-control" id="address" name="address" required>
                         </div>
 
+                        @if($userPhone)
+
                         <div class="form-group">
                             <label for="phone">Телефон</label>
-                            <input type="text" class="form-control" id="phone" name="phone" required>
+                            <input type="text" class="form-control" id="phone" name="phone" value="{{ old('phone', $userPhone) }}" required>
                         </div>
+
+                        @else
+
+                        <div class="form-group">
+                            <label for="phone">Телефон</label>
+                            <input type="text" class="form-control" id="phone" name="phone" value="+375" maxlength="13" required>
+                        </div>
+
+                        @endif
 
                         <button type="submit" class="btn btn-primary mt-3">Подтвердить заказ</button>
                     </form>
@@ -72,5 +83,3 @@
         </div>
     </div>
 @endsection
-
-

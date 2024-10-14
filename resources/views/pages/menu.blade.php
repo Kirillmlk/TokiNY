@@ -24,7 +24,6 @@
                                 <i class="ri-shopping-bag-line"></i>
                             </button>
                         </form>
-
                 </article>
             @endforeach
         </div>

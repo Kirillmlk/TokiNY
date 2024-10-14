@@ -11,8 +11,8 @@
 
             <span class="popular__price">$10.99</span>
 
-            <button class="popular__button">
-                <i class="ri-shopping-bag-line"></i>
+            <button class="popular__button" >
+                <i class="ri-shopping-bag-line" href="{{ route('menu.show') }}"></i>
             </button>
         </article>
 
@@ -25,7 +25,7 @@
             <span class="popular__price">$15.99</span>
 
             <button class="popular__button">
-                <i class="ri-shopping-bag-line"></i>
+                <i class="ri-shopping-bag-line" href="{{ route('menu.show') }}"></i>
             </button>
         </article>
 
@@ -38,7 +38,7 @@
             <span class="popular__price">$19.99</span>
 
             <button class="popular__button">
-                <i class="ri-shopping-bag-line"></i>
+                <i class="ri-shopping-bag-line" href="{{ route('menu.show') }}"></i>
             </button>
         </article>
     </div>

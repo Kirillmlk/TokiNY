@@ -4,14 +4,14 @@ const navMenu = document.getElementById('nav-menu'),
     navToggle = document.getElementById('nav-toggle'),
     navClose = document.getElementById('nav-close')
 
-if(navToggle) {
-    navToggle.addEventListener('click', () =>{
+if (navToggle) {
+    navToggle.addEventListener('click', () => {
         navMenu.classList.add('show-menu')
     })
 }
 
-if(navClose) {
-    navClose.addEventListener('click', () =>{
+if (navClose) {
+    navClose.addEventListener('click', () => {
         navMenu.classList.remove('show-menu')
     })
 }
@@ -25,7 +25,7 @@ const linkAction = () => {
 navLink.forEach(n => n.addEventListener('click', linkAction))
 
 
-const scrollHeader = () =>{
+const scrollHeader = () => {
     const header = document.getElementById('header')
     this.scrollY >= 50 ? header.classList.add('bg-header') : header.classList.remove('bg-header')
 }
@@ -51,16 +51,16 @@ const scrollActive = () => {
             sectionId = current.getAttribute('id'),
             sectionClass = document.querySelector('.nav__menu a[href*=' + sectionId + ']')
 
-        if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight){
+        if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
             sectionClass.classList.add('active-link')
-        }else {
+        } else {
             sectionClass.classList.remove('active-link')
         }
     })
 }
 window.addEventListener('scroll', scrollActive)
 
-const themeButton =document.getElementById('theme-button')
+const themeButton = document.getElementById('theme-button')
 const darkTheme = 'dark-theme'
 const iconTheme = 'ri-sun-line'
 
@@ -96,3 +96,22 @@ sr.reveal(`.home__data`, {origin: 'bottom'})
 sr.reveal(`.about__data, .recently__data`, {origin: 'left'})
 sr.reveal(`.about__img, .recently__img`, {origin: 'right'})
 sr.reveal(`.popular__card`, {interval: 100})
+
+//Order
+document.addEventListener('DOMContentLoaded', function () {
+    const phoneInput = document.getElementById('phone');
+
+    phoneInput.addEventListener('focus', function () {
+        if (phoneInput.value === '+375') {
+            phoneInput.setSelectionRange(4, 4);
+        }
+    });
+
+    phoneInput.addEventListener('input', function () {
+        if (!phoneInput.value.startsWith('+375')) {
+            phoneInput.value = '+375';
+        }
+    });
+});
+
+// End Order

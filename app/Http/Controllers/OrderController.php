@@ -15,14 +15,21 @@ class OrderController extends Controller
         $cartItems = $this->getCartItems($cart);
         $totalPrice = $this->totalPrice($cartItems);
 
-        return view('order.create', compact('cartItems', 'totalPrice'));
+
+        $userPhone = auth()->check() ? auth()->user()->phone_number : '';
+
+        return view('order.create', compact('cartItems', 'totalPrice', 'userPhone'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'address' => 'required|string|max:255',
-            'phone' => 'required|string|max:15',
+            'phone' => [
+                'required',
+                'string',
+                'regex:/^\+375[0-9]{9}$/', // Регулярное выражение для проверки формата
+            ],
         ]);
 
         $user = auth()->user();
