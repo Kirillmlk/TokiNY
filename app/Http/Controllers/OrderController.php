@@ -15,10 +15,11 @@ class OrderController extends Controller
         $cartItems = $this->getCartItems($cart);
         $totalPrice = $this->totalPrice($cartItems);
 
+        $user = auth()->user(); // Получение текущего пользователя
+        $address = $user->address; // Получение адреса пользователя
+        $userPhone = $user->phone_number; // Получение номера телефона пользователя
 
-        $userPhone = auth()->check() ? auth()->user()->phone_number : '';
-
-        return view('order.create', compact('cartItems', 'totalPrice', 'userPhone'));
+        return view('order.create', compact('cartItems', 'totalPrice', 'address', 'userPhone'));
     }
 
     public function store(Request $request)

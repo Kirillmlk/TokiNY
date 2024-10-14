@@ -30,6 +30,11 @@
 
                 @if (Route::has('login'))
                     @auth
+
+                        <li class="nav__item">
+                            <a href="{{ route('cart.index') }}" class="nav__link">Cart</a>
+                        </li>
+
                         <li class="nav__item">
                             <a href="{{ route('profile') }}" class="nav__link">{{ auth()->user()->name }}</a>
                         </li>
