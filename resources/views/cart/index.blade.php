@@ -25,13 +25,14 @@
                 @endforeach
             </div>
             <div class="text-center">
-                <p><strong>Общая сумма: {{ $totalPrice }} ₽</strong></p>
+                <p><strong>Общая сумма: {{ $totalPrice }} $</strong></p>
                 <form action="{{ route('order.create') }}" method="GET">
                     <button type="submit" class="btn btn-primary">Place order</button>
                 </form>
             </div>
         @else
             <p class="text-center">Your cart is empty</p>
+            <p class="text-center">You can visit our menu to choose the dish that suits you</p>
         @endif
     </div>
 
