@@ -7,7 +7,7 @@
         <div class="row mb-5 m">
             <div class="col-md-6 offset-md-3">
                 <h1 class="h2 text-center mb-4 mt-5">Forgot password</h1>
-                <h5 class="text-center mb-4">Введите свой email для получения ссылки на сброс пароля.</h5>
+                <h5 class="text-center mb-4">Enter your email to receive a password reset link.</h5>
 
                 <form action="{{ route('password.email') }}" method="post">
                     @csrf

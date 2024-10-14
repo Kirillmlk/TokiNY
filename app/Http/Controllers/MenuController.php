@@ -64,22 +64,17 @@ class MenuController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        // Обновляем данные меню
         $menu->update($request->only(['name', 'price', 'description', 'category']));
 
-        // Проверяем, загружено ли новое изображение
         if ($request->hasFile('image')) {
-            // Удаляем старое изображение, если оно существует
             if ($menu->image) {
                 Storage::delete('public/' . $menu->image);
             }
 
-            // Сохраняем новое изображение
             $imagePath = $request->file('image')->store('menu_images', 'public');
-            $menu->image = $imagePath; // Обновляем поле image
+            $menu->image = $imagePath;
         }
 
-        // Сохраняем изменения в базе данных
         $menu->save();
 
         return redirect()->route('admin.menu.index')->with('success', 'Menu item updated successfully!');

@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="container mt-5">
-        <h1 class="text-center">Ваша корзина</h1>
+        <h1 class="text-center">Your cart</h1>
 
         @if ($cartItems && count($cartItems) > 0)
             <div class="row">
@@ -13,11 +13,11 @@
                             <img src="{{ asset('storage/' . $item->menu->image) }}" class="card-img-top" alt="{{ $item->menu->name }}">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $item->menu->name }}</h5>
-                                <p class="card-text">Цена: {{ $item->menu->price }} ₽</p>
-                                <p class="card-text">Количество: {{ $item->quantity }}</p>
+                                <p class="card-text">Price: {{ $item->menu->price }} ₽</p>
+                                <p class="card-text">Quantity: {{ $item->quantity }}</p>
                                 <form action="{{ route('cart.remove', $item->menu->id) }}" method="POST">
                                     @csrf
-                                    <button type="submit" class="btn btn-danger">Удалить из корзины</button>
+                                    <button type="submit" class="btn btn-danger">Remove from cart</button>
                                 </form>
                             </div>
                         </div>
@@ -27,11 +27,11 @@
             <div class="text-center">
                 <p><strong>Общая сумма: {{ $totalPrice }} ₽</strong></p>
                 <form action="{{ route('order.create') }}" method="GET">
-                    <button type="submit" class="btn btn-primary">Оформить заказ</button>
+                    <button type="submit" class="btn btn-primary">Place order</button>
                 </form>
             </div>
         @else
-            <p class="text-center">Ваша корзина пуста.</p>
+            <p class="text-center">Your cart is empty</p>
         @endif
     </div>
 

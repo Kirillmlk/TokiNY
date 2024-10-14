@@ -2,32 +2,19 @@
 
 @section('content')
     <div class="container">
-        <h1>Оформление заказа</h1>
-
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-
-        @if (session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
-
+        <h1>Order processing</h1>
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Ваши товары в корзине:</h5>
+                <h5 class="card-title">Your items in the cart:</h5>
 
                 @if (count($cartItems ?? []) > 0)
                     <table class="table">
                         <thead>
                         <tr>
-                            <th>Название</th>
-                            <th>Цена</th>
-                            <th>Количество</th>
-                            <th>Сумма</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -53,20 +40,20 @@
                         @csrf
 
                         <div class="form-group">
-                            <label for="address">Адрес доставки</label>
+                            <label for="address">Delivery address</label>
                             <input type="text" class="form-control" id="address" name="address" value="{{ old('address', $address ?? '') }}" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="phone">Телефон</label>
+                            <label for="phone">Phone number</label>
                             <input type="text" class="form-control" id="phone" name="phone" value="{{ old('phone', $userPhone ?? '+375') }}" maxlength="13" required>
                         </div>
 
-                        <button type="submit" class="btn btn-primary mt-3">Подтвердить заказ</button>
+                        <button type="submit" class="btn btn-primary mt-3">Confirm order</button>
                     </form>
                 @else
                     <p>Ваша корзина пуста.</p>
-                    <a href="{{ route('menu.show') }}" class="btn btn-secondary">Вернуться к меню</a>
+                    <a href="{{ route('menu.show') }}" class="btn btn-secondary">Return to menu</a>
                 @endif
             </div>
         </div>

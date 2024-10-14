@@ -7,23 +7,6 @@
         <div class="row mb-5">
             <div class="col-md-6 offset-md-3">
                 <h1 class="h2 mt-5 mb-5 text-center">Login Form</h1>
-
-                @if (session('success'))
-                    <div class="alert alert-success text-center mt-3">  <!-- Добавляем отступ сверху -->
-                        {{ session('success') }}
-                    </div>
-                @endif
-
-                @if ($errors->any())
-                    <div class="alert alert-danger mt-3">  <!-- Добавляем отступ сверху -->
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-
                 <form action="{{ route('login.auth') }}" method="post">
                     @csrf
 

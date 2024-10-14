@@ -15,9 +15,9 @@ class OrderController extends Controller
         $cartItems = $this->getCartItems($cart);
         $totalPrice = $this->totalPrice($cartItems);
 
-        $user = auth()->user(); // Получение текущего пользователя
-        $address = $user->address; // Получение адреса пользователя
-        $userPhone = $user->phone_number; // Получение номера телефона пользователя
+        $user = auth()->user();
+        $address = $user->address;
+        $userPhone = $user->phone_number;
 
         return view('order.create', compact('cartItems', 'totalPrice', 'address', 'userPhone'));
     }
@@ -29,7 +29,7 @@ class OrderController extends Controller
             'phone' => [
                 'required',
                 'string',
-                'regex:/^\+375[0-9]{9}$/', // Регулярное выражение для проверки формата
+                'regex:/^\+375[0-9]{9}$/',
             ],
         ]);
 
@@ -49,7 +49,7 @@ class OrderController extends Controller
 
         Session::forget('cart');
 
-        return redirect()->route('order.success')->with('success', 'Ваш заказ был успешно оформлен!');
+        return redirect()->route('order.success')->with('success', 'Your order has been successfully placed!');
     }
 
     private function getCartItems($cart)

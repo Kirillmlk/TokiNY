@@ -24,7 +24,7 @@
                                 <form action="{{ route('admin.menu.destroy', $menu->id) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Вы уверены, что хотите удалить этот элемент?');">Delete</button>
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>
                                 </form>
                             </div>
                         </div>
