@@ -25,6 +25,12 @@ class MenuController extends Controller
         return view('admin.menu.create');
     }
 
+    public function edit(Menu $menu)
+    {
+        return view('admin.menu.edit', compact('menu'));
+    }
+
+
     public function store(Request $request)
     {
         $request->validate([
@@ -44,14 +50,6 @@ class MenuController extends Controller
         Menu::create($menuData);
 
         return redirect()->route('admin.menu.index')->with('success', 'Menu item added successfully!');
-    }
-
-
-
-    public function edit(Menu $menu)
-    {
-
-        return view('admin.menu.edit', compact('menu'));
     }
 
     public function update(Request $request, Menu $menu)

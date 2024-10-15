@@ -10,17 +10,6 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
 // Главная страница
 Route::get('/', function () {
     return view('pages.index');
@@ -55,7 +44,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Маршрут для оформления заказа
     Route::get('order/create', [OrderController::class, 'createOrder'])->name('order.create');
     Route::post('order/store', [OrderController::class, 'store'])->name('order.store');
-//    Route::post('/cart/update/{productId}', [CartController::class, 'updateCart'])->name('cart.update');
 
     Route::get('/order/success', function () {
         return view('order.success');
