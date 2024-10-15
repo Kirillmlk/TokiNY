@@ -28,26 +28,3 @@
 @endsection
 
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('.add-to-cart').on('click', function() {
-                const menuId = $(this).data('id');
-
-                $.ajax({
-                    url: '/cart/add/' + menuId,
-                    method: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}'
-                    },
-                    success: function(response) {
-                        alert(response.success);
-                    },
-                    error: function(xhr) {
-                        alert('Ошибка: ' + xhr.responseJSON.error);
-                    }
-                });
-            });
-        });
-    </script>
-

@@ -6,6 +6,8 @@
     <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @vite(['resources/css/app.css'])
 
     <title>@yield('title', 'TokiNY')</title>
@@ -178,10 +180,12 @@
     </div>
 
     <img src="{{ asset('img/leaf-branch-4.png') }}" alt="footer image" class="footer__leaf">
-    {{--    <img src="{{ asset('img/spinach-leaf.png') }}" alt="footer image" class="footer__spinach">--}}
+{{--        <img src="{{ asset('img/spinach-leaf.png') }}" alt="footer image" class="footer__spinach">--}}
 </footer>
 
 <script src="https://unpkg.com/scrollreveal"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 @vite(['resources/js/app.js'])
 </body>
 </html>

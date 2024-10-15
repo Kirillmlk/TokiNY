@@ -17,7 +17,7 @@
                                 <p class="card-text">Quantity: {{ $item->quantity }}</p>
                                 <form action="{{ route('cart.remove', $item->menu->id) }}" method="POST">
                                     @csrf
-                                    <button type="submit" class="btn btn-danger">Remove from cart</button>
+                                    <button type="button" class="btn btn-danger remove-from-cart">Remove from cart</button>
                                 </form>
                             </div>
                         </div>

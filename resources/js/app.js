@@ -119,3 +119,99 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // End Order
 
+// AJAX
+$(document).ready(function() {
+    $('.add-to-cart').on('click', function() {
+        const menuId = $(this).data('id');
+
+        $.ajax({
+            url: '/cart/add/' + menuId,
+            method: 'POST',
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            // success: function(response) {
+            //     if (response.success) {
+            //         alert(response.success);
+            //     } else {
+            //         alert('Произошла ошибка.');
+            //     }
+            // },
+            // error: function(xhr) {
+            //     if (xhr.responseJSON && xhr.responseJSON.error) {
+            //         alert('Ошибка: ' + xhr.responseJSON.error);
+            //     } else {
+            //         alert('Неизвестная ошибка.');
+            //     }
+            // }
+        });
+    });
+});
+
+$(document).ready(function() {
+    $('.remove-from-cart').on('click', function(e) {
+        e.preventDefault(); // Предотвращаем стандартное поведение
+
+        const form = $(this).closest('form'); // Получаем форму
+        const url = form.attr('action'); // Получаем URL формы
+
+        $.ajax({
+            url: url,
+            method: 'POST',
+            data: {
+                _token: $('meta[name="csrf-token"]').attr('content') // CSRF-токен
+            },
+            success: function(response) {
+                // Показываем сообщение об успехе
+                toastr.error('Товар удален!', 'Успех', {
+                    "closeButton": true,
+                    "progressBar": true,
+                    "timeOut": "2000", // Убираем окно через 2 секунды
+                });
+
+                // Удаляем элемент из корзины
+                form.closest('.cart-item').remove(); // Удаляем элемент, если он существует
+            },
+            error: function(xhr) {
+                toastr.error('Ошибка: ' + xhr.responseJSON.message);
+            }
+        });
+    });
+});
+
+
+// End AJAX
+
+//Start Toastr
+
+toastr.options = {
+    "closeButton": false,
+    "debug": false,
+    "newestOnTop": true,
+    "progressBar": true,
+    "positionClass": "toast-top-right",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "2000",  // 1000 миллисекунд (1 секунда)
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+};
+
+document.addEventListener('DOMContentLoaded', function () {
+    const addToCartButtons = document.querySelectorAll('.add-to-cart');
+
+    addToCartButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            const productId = this.getAttribute('data-id');
+
+            toastr.success('Товар добавлен в корзину!');
+        });
+    });
+});
+
+// End Toastr

@@ -37,7 +37,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Маршруты для корзины
     Route::get('cart', [CartController::class, 'index'])->name('cart.index');
-    Route::post('cart/add/{menu}', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::post('cart/add/{menuId}', [CartController::class, 'addToCart'])->name('cart.add');
     Route::post('cart/remove/{menu}', [CartController::class, 'removeFromCart'])->name('cart.remove');
     Route::post('cart/clear', [CartController::class, 'clear'])->name('cart.clear');
 

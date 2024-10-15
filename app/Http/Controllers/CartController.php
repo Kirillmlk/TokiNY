@@ -13,12 +13,15 @@ class CartController extends Controller
     {
         $product = Menu::find($menuId);
 
+        // Проверка на наличие товара
         if (!$product) {
-            return response()->json(['error' => 'Товар не найден.'], 404);
+            return response()->json(['success' => false, 'message' => 'Товар не найден.'], 404);
         }
 
+        // Получаем корзину из сессии
         $cart = Session::get('cart', []);
 
+        // Добавление товара в корзину
         if (isset($cart[$menuId])) {
             $cart[$menuId]['quantity'] += 1;
         } else {
@@ -26,20 +29,16 @@ class CartController extends Controller
                 'name' => $product->name,
                 'price' => $product->price,
                 'quantity' => 1,
-                'image' => $product->image
+                'image' => $product->image,
             ];
         }
 
+        // Сохранение корзины в сессии
         Session::put('cart', $cart);
         $this->saveCartToDatabase($cart);
 
-        // Проверяем, является ли запрос AJAX-запросом
-        if ($request->ajax()) {
-            return response()->json(['success' => 'Товар добавлен в корзину!']);
-        }
-
-        // Если это обычный запрос, перенаправляем пользователя в корзину
-        return redirect()->route('cart.index')->with('success', 'Товар добавлен в корзину!');
+        // Возврат ответа для AJAX
+        return response()->json(['success' => true, 'item' => $cart[$menuId]]);
     }
 
     protected function saveCartToDatabase($cart)
@@ -60,6 +59,7 @@ class CartController extends Controller
         $cart = Session::get('cart', []);
         $cartItems = [];
 
+        // Формирование массива товаров в корзине
         if ($cart) {
             foreach ($cart as $menuId => $item) {
                 $menu = Menu::find($menuId);
@@ -74,7 +74,7 @@ class CartController extends Controller
         }
 
         // Считаем общую сумму
-        $totalPrice = array_sum(array_map(function($item) {
+        $totalPrice = array_sum(array_map(function ($item) {
             return $item->menu->price * $item->quantity;
         }, $cartItems));
 
@@ -85,27 +85,28 @@ class CartController extends Controller
     {
         $cart = Session::get('cart', []);
 
+        // Удаление товара из корзины
         if (isset($cart[$menuId])) {
             unset($cart[$menuId]);
             Session::put('cart', $cart);
-
             // Обновляем данные в базе
             $this->saveCartToDatabase($cart);
+            return redirect()->route('cart.index')->with('success', 'Товар удален из корзины.');
         }
 
-        return redirect()->route('cart.index')->with('success', 'Товар удален из корзины.');
+        return redirect()->route('cart.index')->with('error', 'Товар не найден в корзине.');
     }
 
     public function updateCart(Request $request, $menuId)
     {
-        $quantity = $request->input('quantity');
+        $request->validate(['quantity' => 'required|integer|min:1']);
 
         $cart = Session::get('cart', []);
 
+        // Обновление количества товара в корзине
         if (isset($cart[$menuId])) {
-            $cart[$menuId]['quantity'] = $quantity;
+            $cart[$menuId]['quantity'] = $request->input('quantity');
             Session::put('cart', $cart);
-
             // Обновляем данные в базе
             $this->saveCartToDatabase($cart);
         }
