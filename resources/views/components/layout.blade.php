@@ -70,7 +70,6 @@
 
         <img src="{{ asset('img/leaf-branch-4.png') }}" alt="nav image" class="nav__img-1">
         <img src="{{ asset('img/leaf-branch-3.png') }}" alt="nav image" class="nav__img-2">
-        </div>
 
         <div class="nav__buttons">
             <!-- Theme change button -->

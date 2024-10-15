@@ -18,14 +18,36 @@
                     <span class="popular__description">{{ $menu->description }}</span>
                     <span class="popular__price">$ {{ $menu->price }}</span>
 
-                        <form action="{{ route('cart.add', $menu->id) }}" method="POST">
-                            @csrf
-                            <button type="submit" class="popular__button">
-                                <i class="ri-shopping-bag-line"></i>
-                            </button>
-                        </form>
+                    <button type="button" class="popular__button add-to-cart" data-id="{{ $menu->id }}">
+                        <i class="ri-shopping-bag-line"></i>
+                    </button>
                 </article>
             @endforeach
         </div>
     </section>
 @endsection
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.add-to-cart').on('click', function() {
+                const menuId = $(this).data('id');
+
+                $.ajax({
+                    url: '/cart/add/' + menuId,
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        alert(response.success);
+                    },
+                    error: function(xhr) {
+                        alert('Ошибка: ' + xhr.responseJSON.error);
+                    }
+                });
+            });
+        });
+    </script>
+
