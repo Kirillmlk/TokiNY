@@ -148,36 +148,36 @@ $(document).ready(function() {
     });
 });
 
-$(document).ready(function() {
-    $('.remove-from-cart').on('click', function(e) {
-        e.preventDefault(); // Предотвращаем стандартное поведение
-
-        const form = $(this).closest('form'); // Получаем форму
-        const url = form.attr('action'); // Получаем URL формы
-
-        $.ajax({
-            url: url,
-            method: 'POST',
-            data: {
-                _token: $('meta[name="csrf-token"]').attr('content') // CSRF-токен
-            },
-            success: function(response) {
-                // Показываем сообщение об успехе
-                toastr.error('Товар удален!', 'Успех', {
-                    "closeButton": true,
-                    "progressBar": true,
-                    "timeOut": "2000", // Убираем окно через 2 секунды
-                });
-
-                // Удаляем элемент из корзины
-                form.closest('.cart-item').remove(); // Удаляем элемент, если он существует
-            },
-            error: function(xhr) {
-                toastr.error('Ошибка: ' + xhr.responseJSON.message);
-            }
-        });
-    });
-});
+// $(document).ready(function() {
+//     $('.remove-from-cart').on('click', function(e) {
+//         e.preventDefault(); // Предотвращаем стандартное поведение
+//
+//         const form = $(this).closest('form'); // Получаем форму
+//         const url = form.attr('action'); // Получаем URL формы
+//
+//         $.ajax({
+//             url: url,
+//             method: 'POST',
+//             data: {
+//                 _token: $('meta[name="csrf-token"]').attr('content') // CSRF-токен
+//             },
+//             success: function(response) {
+//                 // Показываем сообщение об успехе
+//                 toastr.error('Товар удален!', 'Успех', {
+//                     "closeButton": true,
+//                     "progressBar": true,
+//                     "timeOut": "2000", // Убираем окно через 2 секунды
+//                 });
+//
+//                 // Удаляем элемент из корзины
+//                 form.closest('.cart-item').remove(); // Удаляем элемент, если он существует
+//             },
+//             error: function(xhr) {
+//                 toastr.error('Ошибка: ' + xhr.responseJSON.message);
+//             }
+//         });
+//     });
+// });
 
 
 // End AJAX
