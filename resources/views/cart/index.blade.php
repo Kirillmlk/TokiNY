@@ -17,7 +17,7 @@
                                 <p class="card-text">Quantity: {{ $item->quantity }}</p>
                                 <form action="{{ route('cart.remove', $item->menu->id) }}" method="POST">
                                     @csrf
-                                    <button type="button" class="btn btn-danger remove-from-cart">Remove from cart</button>
+                                    <button type="submit" class="btn btn-danger">Remove from cart</button>
                                 </form>
                             </div>
                         </div>
@@ -25,7 +25,7 @@
                 @endforeach
             </div>
             <div class="text-center">
-                <p><strong>Общая сумма: {{ $totalPrice }} $</strong></p>
+                <p><strong>Общая сумма: {{ $totalPrice }} ₽</strong></p>
                 <form action="{{ route('order.create') }}" method="GET">
                     <button type="submit" class="btn btn-primary">Place order</button>
                 </form>
@@ -37,4 +37,3 @@
     </div>
 
 @endsection
-

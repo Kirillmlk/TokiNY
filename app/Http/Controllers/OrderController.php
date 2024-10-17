@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Menu;
 use App\Models\Order;
 use Illuminate\Http\Request;
@@ -11,19 +12,26 @@ class OrderController extends Controller
 {
     public function createOrder()
     {
-        $cart = Session::get('cart', []);
-        $cartItems = $this->getCartItems($cart);
+        // Получаем ID текущего пользователя
+        $userId = auth()->id();
+
+        // Получаем корзину из базы данных
+        $userCart = Cart::where('user_id', $userId)->first();
+        $cartItems = $userCart ? $this->getCartItems(json_decode($userCart->items, true)) : [];
         $totalPrice = $this->totalPrice($cartItems);
 
+        // Получаем информацию о пользователе
         $user = auth()->user();
         $address = $user->address;
         $userPhone = $user->phone_number;
 
+        // Возвращаем представление с необходимыми данными
         return view('order.create', compact('cartItems', 'totalPrice', 'address', 'userPhone'));
     }
 
     public function store(Request $request)
     {
+        // Валидация входящих данных
         $request->validate([
             'address' => 'required|string|max:255',
             'phone' => [
@@ -33,9 +41,12 @@ class OrderController extends Controller
             ],
         ]);
 
+
         $user = auth()->user();
-        $cartItems = $this->getCartItems(Session::get('cart', []));
+        $userCart = Cart::where('user_id', $user->id)->first();
+        $cartItems = $userCart ? $this->getCartItems(json_decode($userCart->items, true)) : [];
         $totalPrice = $this->totalPrice($cartItems);
+
 
         $orderData = [
             'user_id' => $user->id,
@@ -47,9 +58,12 @@ class OrderController extends Controller
 
         $order = Order::create($orderData);
 
-        Session::forget('cart');
+        if ($userCart) {
+            $userCart->items = json_encode([]);
+            $userCart->save();
+        }
 
-        return redirect()->route('order.success')->with('success', 'Your order has been successfully placed!');
+        return redirect()->route('order.success')->with('success', 'Ваш заказ успешно оформлен!');
     }
 
     private function getCartItems($cart)
@@ -69,6 +83,7 @@ class OrderController extends Controller
 
         return $cartItems;
     }
+
 
     private function totalPrice($cartItems)
     {
