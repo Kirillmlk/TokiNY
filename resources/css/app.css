@@ -429,11 +429,16 @@ img {
     bottom: 1.25rem;
     right: 1.25rem;
     cursor: pointer;
-    transition: background .3s;
+    transition: background .3s, transform .3s;
 }
 
 .popular__button:hover {
     background-color: var(--first-color-alt);
+    transform: scale(1.1);
+}
+
+.popular__button:active {
+    transform: scale(0.95);
 }
 
 .popular__card:hover .popular__img {

@@ -13,12 +13,20 @@
 
             <div class="mb-3">
                 <label for="category" class="form-label">Category</label>
-                <input type="text" class="form-control" id="category" name="category" required>
+                <div class="input-group">
+                    <select name="category" id="category" class="form-control">
+                        <option value="" disabled selected>Выберите категорию</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category }}">{{ $category }}</option>
+                        @endforeach
+                    </select>
+                    <input type="text" name="new_category" id="new_category" class="form-control" placeholder="Введите новую категорию">
+                </div>
             </div>
 
             <div class="mb-3">
                 <label for="price" class="form-label">Price</label>
-                <input type="number" class="form-control" id="price" name="price" required>
+                <input type="number" step="0.01" class="form-control" id="price" name="price" required>
             </div>
 
             <div class="mb-3">
@@ -34,4 +42,5 @@
             <button type="submit" class="btn btn-primary">Save</button>
         </form>
     </div>
+
 @endsection

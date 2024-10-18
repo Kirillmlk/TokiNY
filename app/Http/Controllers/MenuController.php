@@ -10,24 +10,26 @@ class MenuController extends Controller
 {
     public function index()
     {
-        $menus = Menu::all();
-        return view('admin.menu.index',   compact('menus'));
+        $menus = Menu::all()->groupBy('category');
+        return view('admin.menu.index', compact('menus'));
     }
 
     public function showMenu()
     {
-        $menus = Menu::all();
+        $menus = Menu::all()->groupBy('category');
         return view('pages.menu', compact('menus'));
     }
 
     public function create()
     {
-        return view('admin.menu.create');
+        $categories = Menu::distinct()->pluck('category')->toArray();
+        return view('admin.menu.create', compact('categories'));
     }
 
     public function edit(Menu $menu)
     {
-        return view('admin.menu.edit', compact('menu'));
+        $categories = Menu::distinct()->pluck('category')->toArray();
+        return view('admin.menu.edit', compact('menu', 'categories'));
     }
 
 
@@ -37,11 +39,24 @@ class MenuController extends Controller
             'name' => 'required|string|max:255',
             'price' => 'required|numeric',
             'description' => 'nullable|string',
+            'category' => 'required_without:new_category|string|max:255',
+            'new_category' => 'required_without:category|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $menuData = $request->all();
 
+        // Устанавливаем категорию на основе введенной новой категории или выбранной существующей
+        if ($request->filled('new_category')) {
+            $menuData['category'] = $request->new_category;
+        } elseif ($request->filled('category')) {
+            $menuData['category'] = $request->category;
+        }
+
+        // Проверка, что категория установлена
+        if (!isset($menuData['category'])) {
+            return back()->withErrors(['category' => 'Выберите категорию или введите новую.']);
+        }
 
         if ($request->hasFile('image')) {
             $menuData['image'] = $request->file('image')->store('images', 'public');
@@ -51,6 +66,7 @@ class MenuController extends Controller
 
         return redirect()->route('admin.menu.index')->with('success', 'Menu item added successfully!');
     }
+
 
     public function update(Request $request, Menu $menu)
     {

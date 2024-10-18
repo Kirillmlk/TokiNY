@@ -214,4 +214,14 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+document.getElementById('category').addEventListener('change', function() {
+    const newCategoryInput = document.getElementById('new_category');
+    if (this.value) {
+        newCategoryInput.value = '';
+        newCategoryInput.disabled = true;
+    } else {
+        newCategoryInput.disabled = false;
+    }
+});
+
 // End Toastr

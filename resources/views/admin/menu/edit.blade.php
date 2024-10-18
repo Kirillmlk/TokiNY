@@ -14,7 +14,15 @@
 
         <div class="form-group">
             <label for="category">Category</label>
-            <input type="text" name="category" class="form-control" value="{{ $menu->category }}" required>
+            <div class="input-group">
+                <select name="category" id="category" class="form-control" required>
+                    <option value="" disabled selected>Выберите категорию</option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category }}" {{ $menu->category === $category ? 'selected' : '' }}>{{ $category }}</option>
+                    @endforeach
+                </select>
+                <input type="text" name="new_category" id="new_category" class="form-control" placeholder="Введите новую категорию" aria-label="Введите новую категорию">
+            </div>
         </div>
 
         <div class="form-group">
