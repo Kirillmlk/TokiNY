@@ -45,8 +45,8 @@
                         @if (auth()->user()->role === 'admin')
                             <li class="nav__item">
                                 <a href="{{ route('admin.menu.index') }}"
-                                   class="nav__link {{ Request::is('admin/menu') ? 'active-link' : '' }}">Admin
-                                    Dashboard</a>
+                                   class="nav__link {{ Request::is('admin/menu') ? 'active-link' : '' }}">
+                                    Admin Dashboard</a>
                             </li>
                         @endif
                     @else

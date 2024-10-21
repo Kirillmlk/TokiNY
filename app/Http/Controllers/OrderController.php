@@ -31,7 +31,6 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
-        // Валидация входящих данных
         $request->validate([
             'address' => 'required|string|max:255',
             'phone' => [

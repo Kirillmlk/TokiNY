@@ -126,4 +126,3 @@ class CartController extends Controller
         return redirect()->route('cart.index')->with('success', 'Корзина обновлена.');
     }
 }
-//test
